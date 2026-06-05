@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "id": "workflow-o4ltkr435gge0q38hxah2jrg",
+  "name": "Research flow",
+  "description": "Run an agent job in an ephemeral container.",
+  "nodes": [
+    {
+      "id": "manual-trigger-2",
+      "type": "trigger",
+      "position": {
+        "x": 41.5,
+        "y": 150
+      },
+      "data": {
+        "label": "Manual Trigger",
+        "color": "#9ca3af"
+      }
+    },
+    {
+      "id": "agent-job-3",
+      "type": "agent_job",
+      "position": {
+        "x": 42.5,
+        "y": 241.5
+      },
+      "data": {
+        "label": "Research Client",
+        "agentId": "wytkndu9ybf0831caj5p2j48",
+        "agent": "wytkndu9ybf0831caj5p2j48",
+        "task": "Base on information given in resources. Research about business model, financial health, funding series if any, decision maker, IT outsourcing demand and any information reflect to IT outsourcing intention of client. publish a resource base on your finding",
+        "files": [
+          "."
+        ],
+        "color": "#dc8add"
+      }
+    },
+    {
+      "id": "agent-job-4",
+      "type": "agent_job",
+      "position": {
+        "x": 33.5,
+        "y": 345.5
+      },
+      "data": {
+        "label": "Research Industry",
+        "agentId": "wytkndu9ybf0831caj5p2j48",
+        "agent": "wytkndu9ybf0831caj5p2j48",
+        "task": "from result of client  reseach {{agent-job-3.stdout}}, Research about client's industry trending, and client's competior if any. publish resource base on your finding",
+        "files": [],
+        "outputSchema": null,
+        "color": "#dc8add"
+      }
+    },
+    {
+      "id": "agent-job-5",
+      "type": "agent_job",
+      "position": {
+        "x": 40,
+        "y": 449
+      },
+      "data": {
+        "label": "Inquiry Analysis",
+        "agentId": "qcvn22wupzlkiow2iw84xss9",
+        "agent": "qcvn22wupzlkiow2iw84xss9",
+        "task": "Review the client's requirements and client's information and synthesis the data to client's need, client's painpoints, intentions and timeline with any important element base on your role's perspective.\npublish the synthesis document to resource",
+        "files": [],
+        "outputSchema": null,
+        "color": "#ffbe6f"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "manual-trigger-2->agent-job-3",
+      "source": "manual-trigger-2",
+      "target": "agent-job-3",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "id": "edge-agent-job-3-agent-job-4",
+      "source": "agent-job-3",
+      "target": "agent-job-4",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "id": "edge-agent-job-4-agent-job-5",
+      "source": "agent-job-4",
+      "target": "agent-job-5"
+    }
+  ]
+}

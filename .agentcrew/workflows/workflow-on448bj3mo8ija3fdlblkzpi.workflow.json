@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "id": "workflow-on448bj3mo8ija3fdlblkzpi",
+  "name": "Implementation flow",
+  "description": "Run an agent job in an ephemeral container.",
+  "nodes": [
+    {
+      "id": "manual-trigger-11",
+      "type": "trigger",
+      "position": {
+        "x": 40,
+        "y": 140
+      },
+      "data": {
+        "label": "Manual Trigger",
+        "color": "#9ca3af"
+      }
+    },
+    {
+      "id": "loop-13",
+      "type": "loop",
+      "position": {
+        "x": 53.104418851168646,
+        "y": 221.9839314502958
+      },
+      "data": {
+        "label": "Loop 10 times",
+        "field": "a",
+        "operator": "equals",
+        "value": "a",
+        "maxIterations": 10,
+        "color": "#9ca3af"
+      }
+    },
+    {
+      "id": "agent-job-14",
+      "type": "agent_job",
+      "position": {
+        "x": 204,
+        "y": 316.25
+      },
+      "data": {
+        "label": "Developer Agent",
+        "agentId": null,
+        "agent": null,
+        "task": "Check on the master tasks resource, sign-off resources and design system. \nHere is the last round review:\n{{agent-job-15.stdout}}\nPick up the task that is in process or not started and read the task detailed resource and implement it, report the status to the reponse",
+        "files": [],
+        "outputSchema": null,
+        "color": "#f66151"
+      }
+    },
+    {
+      "id": "agent-job-15",
+      "type": "agent_job",
+      "position": {
+        "x": 210.5,
+        "y": 438.25
+      },
+      "data": {
+        "label": "Review  Agent",
+        "agentId": null,
+        "agent": null,
+        "task": "Base on the result from Developer Agent\n{{agent-job-14.stdout}}\nReview the output and update the status and task detailed base on the result.",
+        "files": [],
+        "outputSchema": null,
+        "color": "#57e389"
+      }
+    },
+    {
+      "id": "run-command-16",
+      "type": "run_cmd",
+      "position": {
+        "x": 38.46606434485655,
+        "y": 362.94569411397583
+      },
+      "data": {
+        "label": "Run command",
+        "image": "daltonnyx/devkit:latest",
+        "command": "echo \"finished\"",
+        "env": {},
+        "color": "#9ca3af"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-manual-trigger-11-loop-13",
+      "source": "manual-trigger-11",
+      "target": "loop-13",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "id": "edge-loop-13-agent-job-14",
+      "source": "loop-13",
+      "target": "agent-job-14",
+      "sourceHandle": "loop",
+      "targetHandle": null
+    },
+    {
+      "id": "edge-agent-job-14-agent-job-15",
+      "source": "agent-job-14",
+      "target": "agent-job-15",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "id": "edge-loop-13-run-command-16",
+      "source": "loop-13",
+      "target": "run-command-16",
+      "sourceHandle": "exit",
+      "targetHandle": null
+    }
+  ]
+}

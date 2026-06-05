@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "id": "workflow-h36jrn0j86hmg9sezoyv41y1",
+  "name": "Feature generation",
+  "description": "Run an agent job in an ephemeral container.",
+  "nodes": [
+    {
+      "id": "manual-trigger-6",
+      "type": "trigger",
+      "position": {
+        "x": 40,
+        "y": 140
+      },
+      "data": {
+        "label": "Manual Trigger",
+        "color": "#9ca3af"
+      }
+    },
+    {
+      "id": "agent-job-7",
+      "type": "agent_job",
+      "position": {
+        "x": 21,
+        "y": 243.5
+      },
+      "data": {
+        "label": "Gather requirements",
+        "agentId": "p5g4y7iuwn44cxtdd0mywpq3",
+        "agent": "p5g4y7iuwn44cxtdd0mywpq3",
+        "task": "Base on the available resources and client's requirement. Please generate the work breakdown structure for this project. publish the WBS as a new resources",
+        "files": [
+          "."
+        ],
+        "color": "#dc8add"
+      }
+    },
+    {
+      "id": "agent-job-8",
+      "type": "agent_job",
+      "position": {
+        "x": 34.5,
+        "y": 353.5
+      },
+      "data": {
+        "label": "Technical Review",
+        "agentId": "kld3jacpbelwx2cj2jtkh4ao",
+        "agent": "kld3jacpbelwx2cj2jtkh4ao",
+        "task": "Base on the WBS and the client's requirements. Generate the implementation plan with timeline that will be pass to Development team to implement",
+        "files": [],
+        "outputSchema": null,
+        "color": "#ffbe6f"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "manual-trigger-6->agent-job-7",
+      "source": "manual-trigger-6",
+      "target": "agent-job-7"
+    },
+    {
+      "id": "edge-agent-job-7-agent-job-8",
+      "source": "agent-job-7",
+      "target": "agent-job-8"
+    }
+  ]
+}
