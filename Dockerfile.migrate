@@ -1,0 +1,18 @@
+FROM node:22-alpine AS base
+RUN apk add --no-cache libc6-compat
+
+# Create same user as main Dockerfile (uid 1001, gid 1001)
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN npm ci
+COPY . .
+
+# Ensure /data is owned by nextjs so the DB file is writable by the app container
+RUN mkdir -p /app/db && chown nextjs:nodejs /app/db
+
+USER nextjs
+ENV DATABASE_URL="/app/db/app.db"
+CMD ["npm", "run", "db:migrate"]
