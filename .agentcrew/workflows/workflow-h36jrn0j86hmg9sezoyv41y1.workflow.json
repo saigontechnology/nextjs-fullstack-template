@@ -20,17 +20,18 @@
       "id": "agent-job-7",
       "type": "agent_job",
       "position": {
-        "x": 21,
-        "y": 243.5
+        "x": 29.337057791207826,
+        "y": 241.58411296494432
       },
       "data": {
         "label": "Gather requirements",
         "agentId": "p5g4y7iuwn44cxtdd0mywpq3",
         "agent": "p5g4y7iuwn44cxtdd0mywpq3",
-        "task": "Base on the available resources and client's requirement. Please generate the work breakdown structure for this project. publish the WBS as a new resources",
+        "task": "Base on the available resources and client's requirement. Please generate the work breakdown structure for this project. publish the WBS purely focus on the what need to be done without estimation as new resource.\nIf any business feels ambiguous, generate a list of question instead of assumtion",
         "files": [
           "."
         ],
+        "outputSchema": "{\n  \"type\": \"object\",\n  \"required\": [\n    \"wbs_uri\"\n  ],\n  \"properties\": {\n    \"wbs_uri\": {\n      \"type\": \"string\",\n      \"description\": \"Created WBS Resource uri \"\n    },\n    \"qa_uri\": {\n      \"type\": \"string\",\n      \"description\": \"Created Q&A uri\"\n    }\n  }\n}",
         "color": "#dc8add"
       }
     },
@@ -38,14 +39,82 @@
       "id": "agent-job-8",
       "type": "agent_job",
       "position": {
-        "x": 34.5,
-        "y": 353.5
+        "x": 39.73285214296061,
+        "y": 349.62173991256464
       },
       "data": {
         "label": "Technical Review",
         "agentId": "kld3jacpbelwx2cj2jtkh4ao",
         "agent": "kld3jacpbelwx2cj2jtkh4ao",
-        "task": "Base on the WBS and the client's requirements. Generate the implementation plan with timeline that will be pass to Development team to implement",
+        "task": "Base on the {{agent-job-7.stdout.json.wbs_uri}} and the client's requirements. Generate the Technical Proposal that fit tightly to the feature requirements without introducing redundant services and dependencies.",
+        "files": [],
+        "outputSchema": "{\n  \"type\": \"object\",\n  \"required\": [\n    \"technical_uri\"\n  ],\n  \"properties\": {\n    \"technical_uri\": {\n      \"type\": \"string\",\n      \"description\": \"Created Technical proposal Resource uri\"\n    }\n  }\n}",
+        "color": "#ffbe6f"
+      }
+    },
+    {
+      "id": "agent-job-4",
+      "type": "agent_job",
+      "position": {
+        "x": -110.5,
+        "y": 483.5
+      },
+      "data": {
+        "label": "Estimation 1",
+        "agentId": "kld3jacpbelwx2cj2jtkh4ao",
+        "agent": "kld3jacpbelwx2cj2jtkh4ao",
+        "task": "Analyze carefully WBS {{agent-job-7.stdout.json.wbs_uri}} and {{agent-job-7.stdout.json.technical_uri}}.\n\nBase on references from estimation history resouces.\n\nGenerate the round 1 estimation for back-end, front-end and other stack if available",
+        "files": [],
+        "outputSchema": "{\n  \"type\": \"object\",\n  \"required\": [\n    \"estimate_1_uri\"\n  ],\n  \"properties\": {\n    \"estimate_1_uri\": {\n      \"type\": \"string\",\n      \"description\": \"Created estimation uri\"\n    }\n  }\n}",
+        "color": "#f66151"
+      }
+    },
+    {
+      "id": "agent-job-5",
+      "type": "agent_job",
+      "position": {
+        "x": 55,
+        "y": 486
+      },
+      "data": {
+        "label": "Estimation 2",
+        "agentId": "kld3jacpbelwx2cj2jtkh4ao",
+        "agent": "kld3jacpbelwx2cj2jtkh4ao",
+        "task": "Analyze carefully WBS {{agent-job-7.stdout.json.wbs_uri}} and {{agent-job-7.stdout.json.technical_uri}}.\n\nBase on references from estimation history resouces.\n\nGenerate the round 2 estimation for back-end, front-end and other stack if available",
+        "files": [],
+        "outputSchema": "{\n  \"type\": \"object\",\n  \"required\": [\n    \"estimate_2_uri\"\n  ],\n  \"properties\": {\n    \"estimate_2_uri\": {\n      \"type\": \"string\",\n      \"description\": \"Created estimation uri\"\n    }\n  }\n}",
+        "color": "#f66151"
+      }
+    },
+    {
+      "id": "agent-job-6",
+      "type": "agent_job",
+      "position": {
+        "x": 228.5,
+        "y": 484.5
+      },
+      "data": {
+        "label": "Estimation 3",
+        "agentId": "kld3jacpbelwx2cj2jtkh4ao",
+        "agent": "kld3jacpbelwx2cj2jtkh4ao",
+        "task": "Analyze carefully WBS {{agent-job-7.stdout.json.wbs_uri}} and {{agent-job-7.stdout.json.technical_uri}}.\n\nBase on references from estimation history resouces.\n\nGenerate the round 2 estimation for back-end, front-end and other stack if available",
+        "files": [],
+        "outputSchema": "{\n  \"type\": \"object\",\n  \"required\": [\n    \"estimate_2_uri\"\n  ],\n  \"properties\": {\n    \"estimate_2_uri\": {\n      \"type\": \"string\",\n      \"description\": \"Created estimation uri\"\n    }\n  }\n}",
+        "color": "#f66151"
+      }
+    },
+    {
+      "id": "agent-job-9",
+      "type": "agent_job",
+      "position": {
+        "x": 42.09035887017748,
+        "y": 624.7951794350887
+      },
+      "data": {
+        "label": "Final Estimation",
+        "agentId": "kld3jacpbelwx2cj2jtkh4ao",
+        "agent": "kld3jacpbelwx2cj2jtkh4ao",
+        "task": "Synthesis estimation data from \n- {{agent-job-4.stdout.json.estimate_1_uri}}\n- {{agent-job-5.stdout.json.estimate_2_uri}}\n- {{agent-job-6.stdout.json.estimate_3_uri}}\n\nGet the average value from these 3 estimations and create the final wbs estimation resource",
         "files": [],
         "outputSchema": null,
         "color": "#ffbe6f"
@@ -56,12 +125,58 @@
     {
       "id": "manual-trigger-6->agent-job-7",
       "source": "manual-trigger-6",
-      "target": "agent-job-7"
+      "target": "agent-job-7",
+      "sourceHandle": null,
+      "targetHandle": null
     },
     {
       "id": "edge-agent-job-7-agent-job-8",
       "source": "agent-job-7",
-      "target": "agent-job-8"
+      "target": "agent-job-8",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "id": "edge-agent-job-8-agent-job-4",
+      "source": "agent-job-8",
+      "target": "agent-job-4",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "id": "edge-agent-job-8-agent-job-5",
+      "source": "agent-job-8",
+      "target": "agent-job-5",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "id": "edge-agent-job-8-agent-job-6",
+      "source": "agent-job-8",
+      "target": "agent-job-6",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "id": "edge-agent-job-5-agent-job-9",
+      "source": "agent-job-5",
+      "target": "agent-job-9",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "id": "edge-agent-job-4-agent-job-9",
+      "source": "agent-job-4",
+      "target": "agent-job-9",
+      "sourceHandle": null,
+      "targetHandle": null
+    },
+    {
+      "id": "edge-agent-job-6-agent-job-9",
+      "source": "agent-job-6",
+      "target": "agent-job-9",
+      "sourceHandle": null,
+      "targetHandle": null
     }
   ]
 }
